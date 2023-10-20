@@ -145,8 +145,21 @@ class ChangeTextTest {
         assertEquals(result, resultBefore)
     }
 
+    @Test
+    fun testButtonActivityText() {
+        val packageName = MODEL_PACKAGE
+        waitForPackage(packageName)
 
-    buttonActivity
+        device.findObject(By.res(packageName, "userInput")).text = textToSet
+        device.findObject(By.res(packageName, "buttonActivity")).click()
+
+        val textView = device.wait(Until.findObject(By.res(packageName, "text")), 5000)
+
+        val result = device.findObject(By.res(packageName, "text")).text
+
+        assertEquals(result, textToSet)
+    }
+
 
 }
 
